@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.util.Random;
+
 public class Project extends TestBase{
 
     @Test
@@ -39,6 +41,16 @@ public class Project extends TestBase{
         bekle(2);
         String antalyaUrl = driver.getCurrentUrl();
         Assert.assertTrue(antalyaUrl.contains("antalya"));
+        bekle(2);
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(61)+1;
+
+        driver.findElement(By.xpath("//*[text()='Daha Fazla Göster']")).click();
+
+        WebElement ilceButonlari = driver.findElement(By.xpath("(//*[@class='sc-a099436b-5 fpUDla'])["+randomIndex+"]"));
+        ilceButonlari.click();
+
 
     }
 
