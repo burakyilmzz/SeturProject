@@ -2,9 +2,11 @@ import Utilities.TestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Random;
 
 public class Project extends TestBase{
@@ -50,6 +52,38 @@ public class Project extends TestBase{
 
         WebElement ilceButonlari = driver.findElement(By.xpath("(//*[@class='sc-a099436b-5 fpUDla'])["+randomIndex+"]"));
         ilceButonlari.click();
+
+        List<WebElement> ilceListesi = driver.findElements(By.xpath("//*[@class='sc-57b11d2f-4 vvBFk']"));
+
+        WebElement secilmisIlce = ilceListesi.get(randomIndex-1);
+        String tekIlce =secilmisIlce.getText();
+        String [] parts = tekIlce.split(" ");
+        String yaziSayacStr = tekIlce.replaceAll("[^0-9]", "");
+        int yaziSayac = Integer.parseInt(yaziSayacStr);
+        bekle(2);
+
+        System.out.println("Secilen filtre index: " + randomIndex);
+        System.out.println("Yanindaki sayi: " + yaziSayacStr);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        js.executeScript("window.scrollBy(0, -1600)");
+
+        if (yaziSayac > 20){
+            WebElement aramadakiSayi = driver.findElement(By.xpath("(//*[@class='sc-b01e5b98-3 vbSmO'])[1]"));
+            String strAramadakiSayi = aramadakiSayi.getText();
+            int sonuctakiSayi = Integer.parseInt(strAramadakiSayi);
+            System.out.println("Sonuctaki Sayi: "+ sonuctakiSayi);
+
+            Assert.assertEquals(sonuctakiSayi,yaziSayac);
+
+
+        }
+
+
+
+
 
 
     }
