@@ -38,8 +38,15 @@ public class Project extends TestBase{
         driver.findElement(By.xpath("//*[@class='sc-3b53cbe9-16 hAKxX']")).click();
         bekle(1);
         driver.findElement(By.xpath("(//*[@viewBox='0 0 20 21'])[1]")).click();
+        WebElement yetiskinSayisi = driver.findElement(By.xpath("(//*[@data-testid='count-label'])[1]"));
+        String yetiskinSayisiStr = yetiskinSayisi.getText();
+        Assert.assertEquals("3",yetiskinSayisiStr);
+
         bekle(1);
-        driver.findElement(By.xpath("//*[text()='Ara']")).click();
+        WebElement araButonu = driver.findElement(By.xpath("//*[text()='Ara']"));
+        Assert.assertTrue(araButonu.isDisplayed());
+        araButonu.click();
+
         bekle(2);
         String antalyaUrl = driver.getCurrentUrl();
         Assert.assertTrue(antalyaUrl.contains("antalya"));
@@ -78,15 +85,6 @@ public class Project extends TestBase{
 
             Assert.assertEquals(sonuctakiSayi,yaziSayac);
 
-
         }
-
-
-
-
-
-
     }
-
-
 }
